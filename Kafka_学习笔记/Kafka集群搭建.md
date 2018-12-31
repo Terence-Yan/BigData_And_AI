@@ -13,8 +13,9 @@ Kafka安装的主要流程：
 2.进入conf目录,编辑配置文件server.properties
 3.进入bin目录,启动kafka集群： ./kafka-server-start.sh -daemon ../config/server.properties
   其中 -daemon表示在后台启动
-4.验证集群是否搭建成功,参考官方文档：<a href="http://kafka.apache.org/quickstart" target="_blank">Kafka快速入门</a>
+4.验证集群是否搭建成功,参考官方文档：
 ```
+  <a href="http://kafka.apache.org/quickstart" target="_blank">Kafka快速入门</a>
 ```
 注：
 a).Linux是按照从前往后的模式扫描环境变量的值
