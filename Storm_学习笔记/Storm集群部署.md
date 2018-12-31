@@ -14,7 +14,7 @@ Zookeeper安装部署的主要流程：
   b).linux远程拷贝命令：scp -r zookeeper-3.4.10 root@slave1:/usr/local/src/
 3.创建项目目录并将解压目录移入项目目录中的zookeeper子目录(这一步不是必须的,只是为了项目管理的方便);
 4.修改Zookeeper的配置文件zoo.cfg;
-5.建立Zookeeper节点标识文件myid;
+5.建立Zookeeper节点标识文件myid,myid文件应该放在zk快照文件目录下(在zoo.cfg文件中配置的,一般目录名称是zkData);
 6.配置环境变量并使环境变量立即生效;
   a).配置环境变量：vim /etc/profile
      export ZOOKEEPER_HOME=/usr/local/src/zookeeper-3.4.10
