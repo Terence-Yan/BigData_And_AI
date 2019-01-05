@@ -24,3 +24,27 @@ Spark的组件有：Spark Core、Spark SQL、Spark Streaming、MLlib、GraphX、
 
 #### 6.Spark的集群管理器
 就底层而言，Spark设计为可以高效地在一个计算节点到数千个计算节点之间伸缩计算。为了实现这样的要求，同时获得最大的灵活性，Spark支持在各种集群管理器(cluster manager)上运行，包括 Hadoop YARN、Apache Mesos,以及Spark自带的一个简易调度器，叫做独立调度器。如果要在没有预装任何集群管理器的机器上安装Spark,那么Spark自带的独立调度器可以让你轻松入门；而如果已经有一个装有 YARN 或 Mesos 的集群，通过Spark对这些集群管理器的支持，你的应用也同样能运行在这些集群之上。
+
+#### 7.Spark的存储层次
+Spark不仅可以将任何Hadoop分布式文件系统(HDFS)上的文件读取为分布式数据集，也可以支持其他支持Hadoop 接口的文件系统，比如本地文件、亚马逊S3、Cassandra、Hive、HBase等。我们需要弄清楚的是，Hadoop并非 Spark 的必要条件，Spark支持任何实现了Hadoop 接口的存储系统。Spark 支持的Hadoop 输入格式包括文本文件、SequenceFile、Avro、Parquet等。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
