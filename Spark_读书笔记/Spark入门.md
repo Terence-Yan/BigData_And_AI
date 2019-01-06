@@ -45,6 +45,7 @@ Spark使用惰性求值，这样就可以把一些操作合并到一起来减少
 
 #### 12.Spark的缓存类型
 **org.apache.spark.storage.StorageLevel中的持久化级别** </br>
+
 级别|使用的空间|CPU时间|是否在内存中|是否在磁盘上|备注
 -|：-：|：-：|：-：|：-：|-|
 MEMORY_ONLY|高|低|是|否| 
