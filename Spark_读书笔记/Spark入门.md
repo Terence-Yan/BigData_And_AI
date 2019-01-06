@@ -44,7 +44,7 @@ val lines = sc.textFile("/path/README.md")
 Spark使用惰性求值，这样就可以把一些操作合并到一起来减少计算数据的步骤。在类似Hadoop MapReduce的系统中，开发者常常花费大量时间考虑如何把操作组合到一起，以减少MapReduce的周期数。而在Spark中，**写出一个非常复杂的映射并不见得能比使用很多简单的连续操作获得好很多的性能**。因此，用户可以用更小的操作来组织他们的程序，这样也使这些操作更容易管理。
 
 #### 12.Spark的缓存类型
-**org.apache.spark.storage.StorageLevel中的持久化级别**
+**org.apache.spark.storage.StorageLevel中的持久化级别** </br>
 |级别|使用的空间|CPU时间|是否在内存中|是否在磁盘上|备注|
 |-|：-：|：-：|：-：|：-：|-|
 |MEMORY_ONLY|高|低|是|否| |
