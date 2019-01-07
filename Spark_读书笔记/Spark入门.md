@@ -45,16 +45,9 @@ Spark使用惰性求值，这样就可以把一些操作合并到一起来减少
 
 #### 12.Spark的缓存类型
 **org.apache.spark.storage.StorageLevel中的持久化级别** </br>
-<table><tr><th>级别</th><th>使用的空间</th><th>CPU时间</th><th>是否在内存中</th><th>是否在磁盘上</th><th>备注</th></tr><tr><td>MEMORY_ONLY</td><td>高</td><td>低</td><td>是</td><td>否</td><td></td></tr><tr><td>MEMORY_ONLY_SER</td><td>高</td><td>低</td><td>是</td><td>否</td><td></td></tr><tr><td>MEMORY_AND_DISK</td><td>高</td><td>低</td><td>是</td><td>否</td><td></td></tr><tr><td>MEMORY_AND_DISK_SER</td><td>低</td><td>高</td><td>部分</td><td>部分</td><td>如果数据在内存中放不下，则溢写到磁盘上。在内存中存放序列化后的数据</td></tr><tr><td>DISK_ONLY</td><td>高</td><td>低</td><td>是</td><td>是</td><td></td></tr>
+<table><tr><th>级别</th><th>使用的空间</th><th>CPU时间</th><th>是否在内存中</th><th>是否在磁盘上</th><th>备注</th></tr><tr><td>MEMORY_ONLY</td><td>高</td><td>低</td><td>是</td><td>否</td><td></td></tr><tr><td>MEMORY_ONLY_SER</td><td>低</td><td>高</td><td>是</td><td>否</td><td></td></tr><tr><td>MEMORY_AND_DISK</td><td>高</td><td>中等</td><td>部分</td><td>部分</td><td>如果数据在内存中放不下，则溢写到磁盘上</td></tr><tr><td>MEMORY_AND_DISK_SER</td><td>低</td><td>高</td><td>部分</td><td>部分</td><td>如果数据在内存中放不下，则溢写到磁盘上。在内存中存放序列化后的数据</td></tr><tr><td>DISK_ONLY</td><td>低</td><td>高</td><td>否</td><td>是</td><td></td></tr>
 </table>
-----------------------------------------------------------------
-|级别|使用的空间|CPU时间|是否在内存中|是否在磁盘上|备注|
-|-|：-：|：-：|：-：|：-：|-|
-|MEMORY_ONLY|高|低|是|否| |
-|MEMORY_ONLY_SER|低|高|是|否| |
-|MEMORY_AND_DISK|高|中等|部分|部分|如果数据在内存中放不下，则溢写到磁盘上|
-|MEMORY_AND_DISK_SER|低|高|部分|部分|如果数据在内存中放不下，则溢写到磁盘上。在内存中存放序列化后的数据|
-|DISK_ONLY|低|高|否|是| |
+
 
 
 
