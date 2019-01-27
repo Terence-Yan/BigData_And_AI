@@ -7,3 +7,9 @@
  设置之后,CLI命令界面：
  hive (default)> 
 ```
+
+#### 2.查询所有数据库的命令：show databases;
+
+#### 3.查询所有数据库的命令：create database [if not exists] <数据库名>;
+
+#### 4.查询当前数据库下所有数据表的命令：show tables;
