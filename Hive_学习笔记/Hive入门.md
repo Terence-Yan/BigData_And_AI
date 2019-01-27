@@ -31,3 +31,7 @@ warehouse.dir所指定的目录下面。
 最后面加上关键字CASCADE，这样可以使Hive自行删除数据库中的表：
     DORP DATABASE IF EXISTS <mydatabase> CASCADE;
 ```
+
+#### 7.CLI命令行界面的退出命令：quit；
+
+#### 8.使用内置元数据存储数据库derby的缺点：不同路径启动hive，每一个hive实例都拥有一套自己的元数据，无法共享。
