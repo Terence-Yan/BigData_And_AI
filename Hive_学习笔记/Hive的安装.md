@@ -26,6 +26,6 @@
     <value>jdbc:derby:;databaseName=metastore_db;create=true</value>
   </property>
   其中databaseName是元数据存储目录所在的路径，默认为metastore_db，其位于hive的安装目录下，是自动创建的。
-  若用户更高此配置的值，则其配置的databaseName值不能与默认配置重名，如databaseName=/user/localhost/hive/metastore_db，
+  若用户更改此配置的值，则其配置的databaseName值不能与默认配置重名，如databaseName=/user/localhost/hive/metastore_db，
   否则，就会出现上面的错误。
 ```
