@@ -10,3 +10,11 @@
 #### 2.Linux系统配置环境变量的两种方式
 * 在/etc/profile文件中配置,此种配置对所有用户有效
 * 在~/.bashrc文件中配置,此种配置只对当前用户有效(~表示当前用户)
+
+#### 3.Linux系统修改时区命令(Centos)
+```
+a).timedatectl:查看系统时间方面的详情
+b).timedatectl list-timezones:列出所有时区
+c).timedatectl set-timezone Asia/Shanghai:设置系统时区为上海
+注：在对计算机系统进行时间同步操作时,应首先查看其时区信息.
+```
