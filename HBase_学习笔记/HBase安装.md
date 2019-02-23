@@ -31,5 +31,5 @@ SLF4J: Found binding in [jar:file:/usr/local/src/hbase-1.1.10/lib/slf4j-log4j12-
 SLF4J: Found binding in [jar:file:/usr/local/src/hadoop-2.6.5/share/hadoop/common/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
 SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-3.问题定性：日志jar包冲突,到指定目录下，删除其中一个即可
+3.问题定性与解决方法：日志jar包冲突,到指定目录下，删除其中一个jar包即可。
 ```
