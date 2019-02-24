@@ -9,3 +9,5 @@
 3).退出shell客户端：quit
 4).停止服务器：bin/zkServer.sh stop
 ```
+
+#### 3.myid文件应位于(配置文件zoo.cfg中的)dataDir参数所指定的目录下
