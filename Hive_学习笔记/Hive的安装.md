@@ -33,3 +33,31 @@
   若用户更改此配置的值，则其配置的databaseName值不能与默认配置重名，如databaseName=/user/localhost/hive/metastore_db，
   否则，就会出现上面的错误。
 ```
+
+### 3.Hive服务端的启动与远程连接
+```
+1.将hive当做一个服务器启动的命令：bin/hiveserver2
+2.远程连接hive服务器的命令：1.bin/beeline
+                          2.beeline>(beeline命令提示符) ! connect jdbc:hive2://master(要连接的主机名):10000(默认端口)
+```
+
+### 4.远程连接hive服务器时，可能出现如下权限验证异常
+```
+Error: Failed to open new session: java.lang.RuntimeException: org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.security.authorize.AuthorizationException): User: root is not allowed to impersonate anonymous (state=,code=0)
+```
+解决方案：
+```
+在hadoop的配置文件core-site.xml中添加如下属性： 
+  <property> 
+     <name>hadoop.proxyuser.root.hosts</name> 
+     <value>*</value> 
+  </property> 
+  <property> 
+     <name>hadoop.proxyuser.root.groups</name> 
+     <value>*</value> 
+  </property>
+释疑：就将上面配置hadoop.proxyuser.xxx.hosts和hadoop.proxyuser.xxx.groups中的xxx设置为root(即你的错误日志中显示的User：xxx为什么就设置为什么)。“*”表示可通过超级代理“xxx”操作hadoop的用户、用户组和主机。重启hdfs。
+这样改的原因：
+主要原因是hadoop引入了一个安全伪装机制，使得hadoop 不允许上层系统直接将实际用户传递到hadoop层，而是将实际用户传递给一个超级代理，由此代理在hadoop上执行操作，避免任意客户端随意操作hadoop。
+注：该解决方案来自网络
+```
