@@ -16,7 +16,10 @@
   For example, we can use "derby" as db type. 
    $ $HIVE_HOME/bin/schematool -dbType <db type> -initSchema "
   b).启动 Hive CLI：$ $HIVE_HOME/bin/hive
-注：若元数据存储库使用的是默认的Derby数据库，则在不同的路径下启动CLI时，上面的a)与b)步骤均需按顺序执行，此时不同路径下存储的元数据是不能共享的。
+注：1.若元数据存储库使用的是默认的Derby数据库，则在不同的路径下启动CLI时，上面的a)与b)步骤均需按顺序执行，此时
+    不同路径下存储的元数据是不能共享的。
+    2.若元数据存储库使用的是mysql数据库，则在不同的路径下启动CLI时，初始化步骤a)只需执行一次，此时
+    不同路径下存储的元数据是可以共享的。
 ```
 
 ### 2.Hive安装过程中出现问题“...Error: FUNCTION 'NUCLEUS_ASCII' already exists. (state=X0Y68,code=30000)...”释疑
