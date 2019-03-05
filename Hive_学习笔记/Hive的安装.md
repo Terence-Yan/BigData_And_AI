@@ -59,5 +59,7 @@ Error: Failed to open new session: java.lang.RuntimeException: org.apache.hadoop
 释疑：就将上面配置hadoop.proxyuser.xxx.hosts和hadoop.proxyuser.xxx.groups中的xxx设置为root(即你的错误日志中显示的User：xxx为什么就设置为什么)。“*”表示可通过超级代理“xxx”操作hadoop的用户、用户组和主机。重启hdfs。
 这样改的原因：
 主要原因是hadoop引入了一个安全伪装机制，使得hadoop 不允许上层系统直接将实际用户传递到hadoop层，而是将实际用户传递给一个超级代理，由此代理在hadoop上执行操作，避免任意客户端随意操作hadoop。
-注：该解决方案来自网络
+注：1.该解决方案来自网络。
+    2.“Enter username for jdbc:hive2://master:10000:”与“Enter password for jdbc:hive2://master:10000:”：远程连接hive时，遇到这样的提示符
+      需要输入用户名与密码时，此处的用户指的是hive服务器的元数据库(如mysql)的有效用户。
 ```
