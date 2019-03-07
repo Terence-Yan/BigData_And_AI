@@ -40,3 +40,32 @@ Sqoop是一款开源的工具，主要用于在Hadoop(Hive)与传统的关系型
                                     --password 123
   当出现预期的结果时，则表示连接成功。
 ```
+
+#### 4.Sqoop之导入数据
+在Sqoop中，“导入”概念是指：从非大数据集群(RDBMS)向大数据集群(Hadoop、Hive、Hbase)中传输数据，即使用import关键字。
+
+#### 5.从RDBMS导入到HDFS
+```
+(1).确定mysql服务正常开启；
+(2).在mysql中准备测试数据:create table student(id int(4) primary key not null auto_increment,name varchar(20),age int(3));
+(3).导入数据
+    a).全量导入：将mysql数据库中目标表的所有数据导入HDFS  
+                   bin/sqoop import \
+                   --connect jdbc:mysql://mysqlhost:3306/ \
+                   --username tom \
+                   --password 123 \
+                   --table st \     数据源表
+                   --target-dir /usr/hive \    导入HDFS的目标路径
+                   --delete-target-dir \       若目标路径存在，则删除并新建
+                   --num-mappers 1 \
+                   --fields-terminated-by "#"  数据输出到文件所用分隔符
+```
+
+
+
+
+
+
+
+
+
