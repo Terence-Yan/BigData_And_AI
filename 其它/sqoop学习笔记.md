@@ -51,7 +51,7 @@ Sqoop是一款开源的工具，主要用于在Hadoop(Hive)与传统的关系型
 (3).导入数据
     a).全量导入：将mysql数据库中目标表的所有数据导入HDFS  
                    bin/sqoop import \
-                   --connect jdbc:mysql://mysqlhost:3306/ \
+                   --connect jdbc:mysql://mysqlhost:3306/database_name \
                    --username tom \
                    --password 123 \
                    --table st \     数据源表
@@ -59,8 +59,54 @@ Sqoop是一款开源的工具，主要用于在Hadoop(Hive)与传统的关系型
                    --delete-target-dir \       若目标路径存在，则删除并新建
                    --num-mappers 1 \
                    --fields-terminated-by "#"  数据输出到文件所用分隔符
+     b).查询导入：通过指定查询SQL将mysql数据库中的目标数据导入HDFS  
+                   bin/sqoop import \
+                   --connect jdbc:mysql://mysqlhost:3306/database_name \
+                   --username tom \
+                   --password 123 \
+                   --target-dir /usr/hive \    导入HDFS的目标路径
+                   --delete-target-dir \       若目标路径存在，则删除并新建
+                   --num-mappers 1 \
+                   --fields-terminated-by "#" \     数据输出到文件所用分隔符
+                   --query 'select * from st where id<=3 and $CONDITIONS;'   指定查询语句
+                或 --query "select * from st where id<=3 and \$CONDITIONS;"  $CONDITIONS是sqoop的参数，不能省略
+     c).指定列导入：通过指定目标表的列信息将mysql数据库中的所有数据导入HDFS  
+                   bin/sqoop import \
+                   --connect jdbc:mysql://mysqlhost:3306/database_name \
+                   --username tom \
+                   --password 123 \
+                   --target-dir /usr/hive \    导入HDFS的目标路径
+                   --delete-target-dir \       若目标路径存在，则删除并新建
+                   --num-mappers 1 \
+                   --fields-terminated-by "#" \     数据输出到文件所用分隔符
+                   --table stu \   数据源表
+                   --columns name,age     指定数据源表中的目标列，如果涉及多列，则用逗号分隔，分隔时不能添加空格
+      d).通过WHERE关键字筛选查询导入：通过指定查询条件将mysql数据库中的所有数据导入HDFS  
+                   bin/sqoop import \
+                   --connect jdbc:mysql://mysqlhost:3306/database_name \
+                   --username tom \
+                   --password 123 \
+                   --target-dir /usr/hive \    导入HDFS的目标路径
+                   --delete-target-dir \       若目标路径存在，则删除并新建
+                   --num-mappers 1 \
+                   --fields-terminated-by "#" \     数据输出到文件所用分隔符
+                   --table stu \   数据源表   
+                   --where "id=3"      where与query参数不能同时使用
 ```
 
+#### 5.从RDBMS导入到
+```
+bin/sqoop import \
+--connect jdbc:mysql://mysqlhost:3306/database_name \
+--username tom \
+--password 123 \
+--table st \     数据源表
+--num-mappers 1 \
+--fields-terminated-by "#"  数据输出到文件所用分隔符
+--hive-import \    hive导入声明
+--hive-overwrite \   目标表存在则对其进行覆盖
+--hive-table table_name     Hive数据库的目标表
+```
 
 
 
