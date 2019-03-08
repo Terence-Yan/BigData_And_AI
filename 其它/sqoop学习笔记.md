@@ -108,13 +108,18 @@ bin/sqoop import \
 --hive-table table_name     Hive数据库的目标表
 注：进行数据的导入过程中，执行sqoop命令时，总是抛出连接被拒绝的异常信息，其中一段一直没有引起注意的异常信息如下：
    “...
-    19/03/07 23:18:08 INFO hive.HiveImport: Caused by: java.sql.SQLException: Unable to open a test connection to the given database.       JDBC url = jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true, username = tom. Terminating connection pool (set lazyInit     to true if you expect to start your database after your app). Original Exception: ------
+    19/03/07 23:18:08 INFO hive.HiveImport: Caused by: java.sql.SQLException: Unable to open a test connection to the given database.
+    JDBC url = jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true, username = tom. Terminating connection pool (set 
+    lazyInit to true if you expect to start your database after your app). 
+    Original Exception: -----
     19/03/07 23:18:08 INFO hive.HiveImport: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
     19/03/07 23:18:08 INFO hive.HiveImport:
     ...
    ”。
-   解决问题思考概述：刚开始，一直以为是mysql数据库访问权限的问题，做了各种尝试之后，还是无济于事。最后才重新认真查看分析日志信息，上面的一段信息再一    次引起了注意。这时，想起来，hive的配置文件中设置了元数据库的访问信息，并且当前机器是hive的客户端，其安装文件是从另一台安装了hive服务端的机器上远程
-   拷贝过来的。可能是hive配置文件中的mysql的访问主机配置没有修改，即还是服务端配置的localhost。而现在是通过远程连接访问hive服务端的，所以应该将        localhost改为hive服务端的主机名称。在对Hive的配置文件修改之后，重新执行了sqoop导入命令，最终，执行成功。
+   解决问题思考概述：刚开始，一直以为是mysql数据库访问权限的问题，做了各种尝试之后，还是无济于事。最后才重新认真查看分析日志信息，上面的一段信息再一
+   次引起了注意。这时，想起来，hive的配置文件中设置了元数据库的访问信息，并且当前机器是hive的客户端，其安装文件是从另一台安装了hive服务端的机器上远
+   程拷贝过来的。可能是hive配置文件中的mysql的访问主机配置没有修改，即还是服务端配置的localhost。而现在是通过远程连接访问hive服务端的，所以应该将
+   localhost改为hive服务端的主机名称。在对Hive的配置文件修改之后，重新执行了sqoop导入命令，最终，执行成功。
 ```
 
 
