@@ -29,3 +29,62 @@ Hbase是一个构建在HDFS之上、分布式的、面向列的开源数据库�
 * Key 和 Version number会在每个列族中存储一份
 * 空值不会被保存
 
+#### 7.Hbase的安装
+```
+单机模式
+1.解压Hbase的tar.gz文件
+2.修改hbase-env.sh文件，添加Java的环境变量
+3.修改hbase-site.xml文件，配置如下参数：
+  """
+<configuration>
+  <property>
+    <name>hbase.rootdir</name>
+    <value>hdfs://master:9000/hbase</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.dataDir</name>
+    <value>/usr/local/src/hbase-1.1.10/data/zkData</value>
+  </property>
+  <property>
+    <name>hbase.cluster.distributed</name>
+    <value>true</value>
+  </property>
+</configuration>
+  """
+4.修改regionservers文件，指定hbase主机
+5.验证hbase是否安装成功，依次启动zookeeper、master、regionserver：bin/hbase-daemon.sh start zookeeper（master、regionserver）
+6.使用jps查看进程，应该存在以下3个进程：HMaster、HRegionServer、HQuorumPeer
+7.最后，查看hbase的webUI，默认端口号：60010(1.0之前版本)，16010(1.0之后版本)。若能成功访问，则安装成功。
+```
+
+#### 8.Hbase在HDFS上的文件目录简介
+```
+    ../hbase
+         |_______ .tmp          #hbase的临时目录，对表进行创建、删除等操作时，hbase会将表move到该目录，然后进行操作
+         |_______ MasterProcWALs   
+         |_______ WALs          #预写日志文件,是regionserver在处理数据的插入和删除的过程中用来记录操作内容的一种日志
+         |_______ data          #核心目录，存储Hbase表的数据。默认情况下，该目录下有两个子目录：/hbase/data/default，
+                                 在用户创建表的时候，没有指定namespace时，表就创建在此目录下；/hbase/data/hbase 系统内部创建的表
+         |_______ hbase.id      #存储的是集群的唯一的cluster id（UUID）
+         |_______ hbase.version    #集群版本号
+         |_______ oldWALs      #当/hbase/WALs目录中的logs没有用之后，会将这些logs移动到此目录下，HMaster会定期的进行清理
+```
+
+#### 9.Hbase Shell操作
+```
+名称                           命令表达式
+创建表                         create '表名称'，'列族名称1'，'列族名称2'，'列族名称N'
+添加记录                       put '表名称'，'行名称'，'列名称:'，值
+查看记录                       get '表名称'，'行名称'
+查看表中的记录总数              count '表名称'
+删除记录                       delete '表名称'，'行名称'，'列名称'
+删除一张表                     先要禁用该表，才能对其进行删除：第一步 disable '表名称'，第二步 drop '表名称'
+查看所有记录                   scan '表名称'
+查看某个表某个列中所有数据       scan '表名称'，{COLUMNS='列族名称：列名称'}
+更新记录                       就是重写一遍进行覆盖
+```
+
+
+
+
+
