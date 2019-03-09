@@ -48,7 +48,8 @@ at org.apache.hadoop.hbase.client.RpcRetryingCallerWithReadReplicas.throwEnriche
 at org.apache.hadoop.hbase.client.ScannerCallableWithReplicas.call(ScannerCallableWithReplicas.java:210)
 ......
 """
-解决办法：只需要在Windows系统的hosts文件里添加Hbase服务端主机的IP与主机名映射即可。
+解决办法：只需要在Windows系统的hosts文件里添加Hbase服务端主机的IP与主机名映射即可，例如：
+      192.32.128.64      master
 ```
 
 
