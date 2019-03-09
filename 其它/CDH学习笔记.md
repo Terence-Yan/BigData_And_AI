@@ -29,3 +29,11 @@
 * Yum
 * Rpm
 * Tarball
+
+#### 5.CDH各组件的maven版本信息参考文件
+```
+maven版本信息
+Documentation -> Cloudera Enterprise 5.x Release Notes -> Version and Download Information -> CDH Version and Packaging Information -> Using the CDH 5 Maven Repository
+各组件的版本信息
+CDH Version and Packaging Information -> CDH 5 Packaging and Tarball Information
+```
