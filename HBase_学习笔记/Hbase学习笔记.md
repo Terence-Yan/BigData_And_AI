@@ -192,7 +192,12 @@ StoreFile以HFile格式保存在HDFS上，包括以下六个数据段信息：
   件系统中sequence number。
 * HLog Sequece File的Value是HBase的KeyValue对象，即对应HFile中的KeyValue。
 
-
+#### 24.将数据从HDFS导入HBase
+```
+1.在Linux的shell命令行输入：HADOOP_CLASSPATH=`${HBASE_HOME}/bin/hbase classpath` ${HADOOP_HOME}/bin/hadoop jar /usr/local/src/
+  hbase-1.1.10/lib/hbase-server-1.1.10.jar获取Hbase数据传输的帮助命令
+2.
+```
 
 
 
