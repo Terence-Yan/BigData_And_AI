@@ -18,3 +18,17 @@ b).timedatectl list-timezones:列出所有时区
 c).timedatectl set-timezone Asia/Shanghai:设置系统时区为上海
 注：在对计算机系统进行时间同步操作时,应首先查看其时区信息.
 ```
+
+#### 4.虚拟机之间互相能ping通，ping不通外网的解决方法
+```
+现象：ping: www.baidu.com: Name or service not known
+因为ping 命令是属于ICMP协议，ping ip地址有效。若直接ping网址（域名），需要配置DNS。
+解决办法是添加nameserver：
+如下
+命令：vi /etc/resolv.conf
+输入i进行插入
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+修改完成以后按esc退出。
+重启网络：systemctl restart network
+```
