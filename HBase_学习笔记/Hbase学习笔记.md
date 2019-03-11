@@ -206,9 +206,19 @@ StoreFile以HFile格式保存在HDFS上，包括以下六个数据段信息：
   /hbase_test -Dimporttsv.bulk.output=/hbase_test。在数据量较大时，添加该参数能显著提高执行效率，推荐使用该种方式。
 ```
 
+#### 25.将数据从HBase导出到HDFS
+```
+1.执行数据传输命令：HADOOP_CLASSPATH=`${HBASE_HOME}/bin/hbase classpath` ${HADOOP_HOME}/bin/hadoop jar /usr/local/src/hbase-1.1.10
+  /lib/hbase-server-1.1.10.jar export test02 /hbase_test
+  业务含义：表示将Hbase默认命名空间中的表test02中的数据导出到HDFS文件系统的/hbase_test目录中。
+```
 
-
-
+#### 26.将数据从HDFS导入到HBase
+```
+1.执行数据传输命令：HADOOP_CLASSPATH=`${HBASE_HOME}/bin/hbase classpath` ${HADOOP_HOME}/bin/hadoop jar /usr/local/src/hbase-1.1.10
+  /lib/hbase-server-1.1.10.jar import test02 /hbase_test
+  业务含义：表示将HDFS上的目录/hbase_test中的文件数据导入到Hbase默认命名空间的test02表中。
+```
 
 
 
