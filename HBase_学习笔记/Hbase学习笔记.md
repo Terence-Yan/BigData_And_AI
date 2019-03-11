@@ -196,13 +196,14 @@ StoreFile以HFile格式保存在HDFS上，包括以下六个数据段信息：
 ```
 1.在Linux的shell命令行输入：HADOOP_CLASSPATH=`${HBASE_HOME}/bin/hbase classpath` ${HADOOP_HOME}/bin/hadoop jar /usr/local/src/
   hbase-1.1.10/lib/hbase-server-1.1.10.jar获取Hbase数据传输的帮助命令
-2.
-
-
-
-
-
-HADOOP_CLASSPATH=`${HBASE_HOME}/bin/hbase classpath` ${HADOOP_HOME}/bin/hadoop jar /usr/local/src/hbase-1.1.10/lib/hbase-server-1.1.10.jar importtsv -Dimporttsv.columns=HBASE_ROW_KEY,info:name,info:age test02 /hbase_test
+2.执行数据传输命令：HADOOP_CLASSPATH=`${HBASE_HOME}/bin/hbase classpath` ${HADOOP_HOME}/bin/hadoop jar /usr/local/src/hbase-1.1.10
+  /lib/hbase-server-1.1.10.jar importtsv -Dimporttsv.columns=HBASE_ROW_KEY,info:name,info:age test02 /hbase_test
+  业务含义：表示将HDFS上的文件/hbase_test中的数据导入到Hbase默认命名空间的test02表中，其中/hbase_test文件中每行有3列由制表符分割的数据，这3
+  列数据与表test02中的列的对应关系分别为HBASE_ROW_KEY(即第一列为主键),info:name,info:age。
+  tsv文件：由制表符分割列值的文件。
+3.使用-Dimporttsv.bulk.output参数，执行数据传输命令：HADOOP_CLASSPATH=`${HBASE_HOME}/bin/hbase classpath` ${HADOOP_HOME}/bin/hadoop jar 
+  /usr/local/src/hbase-1.1.10/lib/hbase-server-1.1.10.jar importtsv -Dimporttsv.columns=HBASE_ROW_KEY,info:name,info:age test02  
+  /hbase_test -Dimporttsv.bulk.output=/hbase_test。在数据量较大时，添加该参数能显著提高执行效率，推荐使用该种方式。
 ```
 
 
