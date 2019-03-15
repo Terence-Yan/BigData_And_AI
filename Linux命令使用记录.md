@@ -32,3 +32,10 @@ nameserver 8.8.4.4
 修改完成以后按esc退出。
 重启网络：systemctl restart network
 ```
+
+#### 5.crontab之定时任务
+```
+1.查看当前用户已启动的定时任务：crontab -l
+2.删除当前用户已启动的定时任务：crontab -r
+注：更多关于定时任务的命令，可通过 crontab --help 查看。
+```
