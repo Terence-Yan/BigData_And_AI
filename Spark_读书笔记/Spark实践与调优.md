@@ -52,6 +52,54 @@ driver可能面临内存压力。
 那么每个块都会被压缩。在这种情况下，Spark会对每一个块并行启动任务。所以，你可以认为它们是可分的。但是，另一方面，如果用它们压缩文本文件，那么整个
 文件会被压缩到一个块中，因此对于每个文件都会有一个任务被启动。
 
+#### 12.Spark中JSON文件的处理
+* 对JSON文件的读取和处理，SparkSQL有一个专门的方法。其中一个好处是可以让SparkSQL根据数据集推断或者通过编程方式指定schema。如果你提前知道了
+schema，建议提供出来，省得Spark**再次扫描整个输入文件去确定schema**。这种方式的另一个好处是允许你自己**决定需要处理的字段**。如果JSON文件
+中有很多你并不需要的字段，你可以仅指定相关的字段，其它的将会被忽略掉。
+```
+   val schema = new StructType(Array(new StructField("name", StringType, false), new StructField("age", IntegerType, false)))
+   val specifiedSchema = sqlContext.jsonField("file.json", schema)
+```
+* 上面处理JSON文件的方式假设**每一行都有一个JSON对象**。如果一些JSON对象缺失一些字段，那么这些字段会被默认替换为null值。在推断schema时，
+如果有一些错误的输入，SparkSQL会创建一个名为_corrupt_record的新列。这些错误的输入会在这一列中存储它们的数据，而其它列都为null值。
+
+#### 13.Sequence文件
+Sequence文件是一种常用的文件格式，由**二进制键值对**组成，这些键值对必须是Hadoop **Writable接口**的子类。因为有**同步标记的特性**，它们
+在分布式处理中很受欢迎。有这些特性，你就能找到记录的边界来做并行处理。**Sequence文件是一种十分高效的数据存储格式，因为它能被高效地压缩及解压**。
+
+#### 14.Avro文件
+Avro文件格式是一种依赖于schema的二进制数据格式。当以Avro格式存储数据时，**schema总是与数据一起存储**。这个特点使得在不同的应用程序中都可以读取
+Avro文件。
+
+#### 15.Parquet文件
+* Parquet文件格式是一种**支持嵌套数据结构的列式文件格式**。列式存储格式非常适用于**聚合查询**，因为从磁盘中读取数据时仅返回需要的列。Parquet文件
+支持高效地压缩和编码schema，因为它们可以按列指定。这正是使用这种文件格式能减少磁盘I/O操作、节省更多存储空间的原因。
+* SparkSQL提供专门的方法来读写保存数据schema的Parquet文件，并且Parquet文件格式**支持schema演化**，起初可以只有几列，然后按需添加更多的列。
+Parquet会自动检测这些schema差异并自动合并。不过，在非必要情况下应避免schema合并，因为**该操作严重影响性能**。下面的例子演示了如何读取
+Parquet文件并启用schema合并功能：
+```
+  val parquetDF = sqlContext.read.option("mergeSchema","true").parquet("parquetFolder")
+```
+* 在SparkSQL中，Parquet Datasource能够检测数据是否已分区并确定分区。这对于数据分析是一项重要的优化，因为在一次查询中，只有需要的分区才会根据查询
+语句中的断言(predicate)被扫描。
+* 从SparkSQL最佳实践的角度，鼓励使用Parquet文件格式。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
