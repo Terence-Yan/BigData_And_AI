@@ -19,8 +19,9 @@ Spark中有两种类型的共享变量：**广播变量**(broadcast variable) �
 在本例中，声明在函数之外的power变量被传给foreach方法。这个值将随着任务被拷贝到序列化闭包里。
 
 #### 3.广播变量
-![图1](https://github.com/Terence-Yan/note_pictures/blob/master/spark_pictures/broadVariable.png "")
-![图2](https://github.com/Terence-Yan/note_pictures/blob/master/spark_pictures/broadVariable2.png "")
+![图1](https://github.com/Terence-Yan/note_pictures/blob/master/spark_pictures/broadVariable2.png "")
+![图2](https://github.com/Terence-Yan/note_pictures/blob/master/spark_pictures/broadVariable3.png "")
+![图3](https://github.com/Terence-Yan/note_pictures/blob/master/spark_pictures/broadVariable.png "")
 
 
 
