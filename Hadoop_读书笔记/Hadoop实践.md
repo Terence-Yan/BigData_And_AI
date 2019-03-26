@@ -48,3 +48,15 @@ java.lang.IllegalArgumentException: Does not contain a valid host:port authority
         <value>hostname:13308</value>
     </property>
 ```
+
+#### 3.跨平台运行job任务
+```
+如果需要从windows系统上运行job提交的客户端程序，则需要设置跨平台提交参数：
+   conf.set("mapreduce.app-submission.cross-platform", "true");
+```
+
+
+
+
+
+
