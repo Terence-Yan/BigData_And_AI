@@ -39,3 +39,8 @@ nameserver 8.8.4.4
 2.删除当前用户已启动的定时任务：crontab -r
 注：更多关于定时任务的命令，可通过 crontab --help 查看。
 ```
+
+#### 6.查看指定进程监听的端口信息：netstat -nltp | grep <进程id>
+
+#### 7.查看系统剩余的内存：free -m
+
