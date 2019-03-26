@@ -44,6 +44,54 @@ Spark中有两种类型的共享变量：**广播变量**(broadcast variable) �
 ```
 总结一下，当有多个任务需要访问同一变量时，应当考虑广播变量。这将提升应用的性能。
 
+#### 6.累加器
+累加器是另一种类型的共享变量，可以用它从worker节点**聚合数值**，然后**返回给driver**。假设我们有一个数据集，我们想要计算达到一定条件的数目一共
+有多少：
+```
+   val myRdd = sc.parallelize(Array(1, 2, 3, 4, 5, 6, 7))
+   val evenNumbersCount = 0
+   val unevenNumbersCount = 0
+   myRdd.foreach(element => {
+       if (element % 2 == 0) evenNumbersCount += 1
+       else unevenNumbersCount += 1
+   })
+```
+* 在上面的例子中，evenNumbersCount及unevenNumbersCount将在闭包内被序列化，发送给executor的各个任务中。这意味着每个任务会计算它们管理的分区
+所对应的奇数与偶数计数器，但是对所有任务的总计数并不会累加到一起。
+* 通过累加器来解决这类问题，为我们提供了一种机制，能安全地更新所有executor之间共享的变量。它们的值在每个任务内并行计算，然后在driver端相加。这是
+为什么在executor上的操作必须具备关联性(associative)的原因。
+* 为了利用累加器，需要将前面的示例改成下面的样子：
+```
+   val myRdd = sc.parallelize(Array(1, 2, 3, 4, 5, 6, 7))
+   val evenNumbersCount = sc.accumulator(0, "Even numbers")
+   val unevenNumbersCount = sc.accumulator(0, "Uneven numbers")
+   myRdd.foreach(element => {
+       if (element % 2 == 0) evenNumbersCount += 1
+       else unevenNumbersCount += 1
+   })
+   println(s" Even numbers ${ evenNumbersCount.value }")
+   println(s" Uneven numbers ${ unevenNumbersCount.value }")
+```
+当我们创建累加器时，会提供初始值，还可以给它起一个名字。运行在集群上的任务能更新这个值，但是不能读取。只有driver能读取累加器的值(evenNumbersCount.value)。
+
+#### 7.实现自定义的累加器
+* 如果你想自定义累加器的行为，可以自己实现一个累加器。只需要扩展**AccumulatorParam类**A并实现两个方法：zero方法，为累加的类型提供“零值”；
+addInPlace方法，把两个值相加。
+* 你也能实现一个输入是某种类型但结果是其他类型的累加器。对于此类累加器，你需要实现更通用的**Accumulable接口**A来定制累加器行为。
+* 累加器在排查问题时非常有用。比如，统计成功与失败的操作的次数，或者统计某个操作被执行过多少次，与某个业务场景相关的问题出现过多少次。
+
+#### 8.使用累加器的注意事项
+* 关于累加器需要知道的一点是，应当**仅在action**而**不是transformation**操作中计算它们。这是因为Spark容错机制的缘故。Spark会因任务失败或太慢
+而自动重新执行任务。如果执行一个转换时一个节点宕机，此任务将在另一台机器上启动。当任务在节点上运行太长时间时，也会发生同样的事情。如果一些分区数据
+从缓存中被挤出来，但是做计算时又要用到它们，就会基于RDD**谱系**(lineage)重新计算出这些分区。因此，这里需要强调的是特定的函数可能会在数据集的同一
+分区上被执行多次，这取决于集群上是否发生了最终导致不可靠累加器值的一些事件。
+* 一旦理解这种行为，就知道如果希望不论集群上发生什么都能得到可靠的计数值，需要在action操作而不是transformation操作中更新累加器。对于action而言，
+Spark确保在累加器中仅发生一次任务更新。当进行转换时则不能有此保证，因为累加器在转换中可能更新多次。
+
+
+
+
+
 
 
 
