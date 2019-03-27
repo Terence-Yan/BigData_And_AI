@@ -13,7 +13,9 @@ Spark作为下一代大数据处理引擎，在非常短的时间里崭露头角
 #### 3.Spark是什么
 Spark是一个用来实现快速而通用的集群计算平台。
 ```
-官方介绍：Apache Spark is a fast and general-purpose cluster computing system. It provides high-level APIs in Java, Scala, Python and R, and an optimized engine that supports general execution graphs. It also supports a rich set of higher-level tools including Spark SQL for SQL and structured data processing, MLlib for machine learning, GraphX for graph processing, and Spark Streaming.
+官方介绍：Apache Spark is a fast and general-purpose cluster computing system. It provides high-level APIs in Java, Scala, Python 
+and R, and an optimized engine that supports general execution graphs. It also supports a rich set of higher-level tools including 
+Spark SQL for SQL and structured data processing, MLlib for machine learning, GraphX for graph processing, and Spark Streaming.
 ```
 
 #### 4.Spark的核心是什么
