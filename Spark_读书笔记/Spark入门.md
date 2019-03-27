@@ -48,10 +48,8 @@ Spark使用惰性求值，这样就可以把一些操作合并到一起来减少
 **org.apache.spark.storage.StorageLevel中的持久化级别(表-1)** </br>
 <table><tr><th>级别</th><th>使用的空间</th><th>CPU时间</th><th>是否在内存中</th><th>是否在磁盘上</th><th>备注</th></tr><tr><td>MEMORY_ONLY</td><td>高</td><td>低</td><td>是</td><td>否</td><td></td></tr><tr><td>MEMORY_ONLY_SER</td><td>低</td><td>高</td><td>是</td><td>否</td><td></td></tr><tr><td>MEMORY_AND_DISK</td><td>高</td><td>中等</td><td>部分</td><td>部分</td><td>如果数据在内存中放不下，则溢写到磁盘上</td></tr><tr><td>MEMORY_AND_DISK_SER</td><td>低</td><td>高</td><td>部分</td><td>部分</td><td>如果数据在内存中放不下，则溢写到磁盘上。在内存中存放序列化后的数据</td></tr><tr><td>DISK_ONLY</td><td>低</td><td>高</td><td>否</td><td>是</td><td></td></tr>
 </table>
-</br>
-```
-  注：如有必要，可以通过在存储级别的末尾加上“_2”来把持久化数据存为两份。
-```
+* 注：如有必要，可以通过在存储级别的末尾加上“_2”来把持久化数据存为两份。
+
 
 #### 13.Spark的默认缓存
 出于不同的目的，我们可以为RDD选择不同的持久化级别(如表-1所示)。在Scala和Java中，默认情况下persist()会把数据**以序列化的形式缓存在JVM的堆空间中**。在Python中，我们会**始终**序列化要持久化存储的数据，所以持久化级别**默认值就是以序列化后的对象存储在JVM堆空间中**。当我们把数据写到磁盘或者堆外存储上时，也总是使用序列化后的数据。
