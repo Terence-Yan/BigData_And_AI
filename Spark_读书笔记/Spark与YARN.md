@@ -38,7 +38,7 @@ Spark的每个executor在它自己的**YARN容器里运行**，每个节点上�
 * 启动动态资源分配时，Spark使用一组启发式算法来确定executor是否过多或是需要更多的executor。第一个度量方法为**是否有等着被调度的积压任务**。Spark
 将会定期检查挂起的任务数，如果一直有在等待的任务，就分配呈指数增加的executor。应用将首先增加1个executor，然后是2个、4个、8个，在大多数情形下，增加
 几个executor就足够了。
-* 当动态分配启用时，无须在手动设置 -num-executor 属性，因为系统会根据调度器的需求，增加可用的executor来执行任务。
+* 当动态分配启用时，无须再手动设置 -num-executor 属性，因为系统会根据调度器的需求，增加可用的executor来执行任务。
 
 #### 9.在YARN上运行Spark的两种模式
 在YARN上运行Spark有两种方式。第一种情况，driver运行在启动Spark应用的机器上，无论这个Spark应用是spark-shell还是spark-submit提交的二进制码。在这种
