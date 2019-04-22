@@ -55,7 +55,13 @@ java.lang.IllegalArgumentException: Does not contain a valid host:port authority
    conf.set("mapreduce.app-submission.cross-platform", "true");
 ```
 
-
+#### 4.【Error: java.io.IOException: Unable to initialize any output collector】
+```
+问题背景：Windows开发环境，在Eclipse上运行job提交任务，控制台显示了如标题所示的异常信息
+问题根因：提交job任务的主类中的Text类引用错误
+         job.setMapOutputKeyClass(Text.class);
+解决方案：应该引用的是hadoop包中的Text类——org.apache.hadoop.io.Text
+```
 
 
 
