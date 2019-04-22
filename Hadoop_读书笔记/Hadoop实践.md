@@ -63,6 +63,9 @@ java.lang.IllegalArgumentException: Does not contain a valid host:port authority
 解决方案：应该引用的是hadoop包中的Text类——org.apache.hadoop.io.Text
 ```
 
-
+#### 5.Hadoop的序列化接口——Writable
+```
+Hadoop中，封装数据的Java类都应该实现该接口，且该类必须有无参的构造器。
+```
 
 
